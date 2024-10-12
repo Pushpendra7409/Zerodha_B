@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3002;
 const URL = process.env.MONGO_URL;
 
+const { HoldingsModel } = require('./model/HoldingsModel');
 const { PositionsModel } = require('./model/PositionsModel');
-
 const app = express();
 
 // app.get ('/addPositions', async (req, res) => {
@@ -50,6 +50,18 @@ const app = express();
 //     });
 //     res.send("Done!")
 // });
+
+app.get("/allHoldings", async (req, res) => {
+  let allHoldings = await HoldingsModel.find({});
+  res.json(allHoldings);
+});
+
+app.get("/allPositions", async (req, res) => {
+    let allPositions = await PositionsModel.find({});
+    res.json(allPositions);
+  });
+
+
 
 app.listen(PORT, () => {
     console.log("App is listening on port 3002");
